@@ -128,39 +128,53 @@ export default function Navigation() {
 
       </div>
 
-      {/* Mobile Menu — fixed overlay so it doesn't push/scroll with page */}
+      {/* Mobile Menu */}
       {mobileOpen && (
-        <div
-          style={{
-            position: 'fixed',
-            top: '4rem',
-            left: 0,
-            right: 0,
-            zIndex: 49,
-            background: 'rgba(10, 15, 30, 0.97)',
-            backdropFilter: 'blur(16px)',
-            borderBottom: '1px solid rgba(255,255,255,0.08)',
-            padding: '0.5rem 1.5rem 1.25rem',
-          }}
-        >
-          {navLinks.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              onClick={() => setMobileOpen(false)}
-              style={{
-                display: 'block',
-                color: 'rgba(255,255,255,0.8)',
-                textDecoration: 'none',
-                padding: '0.75rem 0',
-                borderBottom: '1px solid rgba(255,255,255,0.05)',
-                fontSize: '0.9rem',
-              }}
-            >
-              {link.label}
-            </Link>
-          ))}
-        </div>
+        <>
+          {/* Backdrop — tap anywhere to dismiss */}
+          <div
+            onClick={() => setMobileOpen(false)}
+            style={{
+              position: 'fixed',
+              inset: 0,
+              zIndex: 48,
+              background: 'rgba(0,0,0,0.5)',
+            }}
+          />
+          {/* Dropdown panel */}
+          <div
+            style={{
+              position: 'fixed',
+              top: '4rem',
+              left: 0,
+              right: 0,
+              zIndex: 49,
+              background: 'rgba(10, 15, 30, 0.98)',
+              backdropFilter: 'blur(20px)',
+              borderBottom: '1px solid rgba(255,255,255,0.1)',
+              padding: '0.5rem 1.5rem 1.25rem',
+            }}
+          >
+            {navLinks.map((link) => (
+              <Link
+                key={link.href}
+                href={link.href}
+                onClick={() => setMobileOpen(false)}
+                style={{
+                  display: 'block',
+                  color: 'rgba(255,255,255,0.85)',
+                  textDecoration: 'none',
+                  padding: '0.85rem 0',
+                  borderBottom: '1px solid rgba(255,255,255,0.07)',
+                  fontSize: '1rem',
+                  fontWeight: 500,
+                }}
+              >
+                {link.label}
+              </Link>
+            ))}
+          </div>
+        </>
       )}
     </nav>
     </>  
