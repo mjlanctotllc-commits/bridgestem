@@ -27,12 +27,17 @@ export default function Navigation() {
   }, [mobileOpen]);
 
   return (
+    <>
+    {/* Spacer so fixed nav doesn't overlap content */}
+    <div style={{ height: '4rem' }} />
     <nav
       style={{
-        position: 'sticky',
+        position: 'fixed',
         top: 0,
+        left: 0,
+        right: 0,
         zIndex: 50,
-        background: 'rgba(10, 15, 30, 0.85)',
+        background: 'rgba(10, 15, 30, 0.95)',
         backdropFilter: 'blur(16px)',
         borderBottom: '1px solid rgba(255,255,255,0.08)',
       }}
@@ -158,5 +163,6 @@ export default function Navigation() {
         </div>
       )}
     </nav>
+    </>  
   );
 }
