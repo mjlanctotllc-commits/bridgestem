@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 
 const navLinks = [
@@ -17,6 +17,14 @@ const navLinks = [
 
 export default function Navigation() {
   const [mobileOpen, setMobileOpen] = useState(false);
+
+  // Close menu on scroll
+  useEffect(() => {
+    if (!mobileOpen) return;
+    const handleScroll = () => setMobileOpen(false);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [mobileOpen]);
 
   return (
     <nav
@@ -113,29 +121,42 @@ export default function Navigation() {
           </button>
         </div>
 
-        {/* Mobile Menu */}
-        {mobileOpen && (
-          <div style={{ paddingBottom: '1rem' }}>
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                onClick={() => setMobileOpen(false)}
-                style={{
-                  display: 'block',
-                  color: 'rgba(255,255,255,0.8)',
-                  textDecoration: 'none',
-                  padding: '0.75rem 0',
-                  borderBottom: '1px solid rgba(255,255,255,0.05)',
-                  fontSize: '0.9rem',
-                }}
-              >
-                {link.label}
-              </Link>
-            ))}
-          </div>
-        )}
       </div>
+
+      {/* Mobile Menu — fixed overlay so it doesn't push/scroll with page */}
+      {mobileOpen && (
+        <div
+          style={{
+            position: 'fixed',
+            top: '4rem',
+            left: 0,
+            right: 0,
+            zIndex: 49,
+            background: 'rgba(10, 15, 30, 0.97)',
+            backdropFilter: 'blur(16px)',
+            borderBottom: '1px solid rgba(255,255,255,0.08)',
+            padding: '0.5rem 1.5rem 1.25rem',
+          }}
+        >
+          {navLinks.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              onClick={() => setMobileOpen(false)}
+              style={{
+                display: 'block',
+                color: 'rgba(255,255,255,0.8)',
+                textDecoration: 'none',
+                padding: '0.75rem 0',
+                borderBottom: '1px solid rgba(255,255,255,0.05)',
+                fontSize: '0.9rem',
+              }}
+            >
+              {link.label}
+            </Link>
+          ))}
+        </div>
+      )}
     </nav>
   );
 }
