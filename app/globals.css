@@ -126,3 +126,22 @@ html {
   margin: 0 auto;
   padding: 6rem 1.5rem;
 }
+
+/* Navigation responsive */
+.hidden-mobile {
+  display: flex;
+}
+
+.mobile-menu-btn {
+  display: none !important;
+}
+
+@media (max-width: 768px) {
+  .hidden-mobile {
+    display: none !important;
+  }
+
+  .mobile-menu-btn {
+    display: block !important;
+  }
+}
